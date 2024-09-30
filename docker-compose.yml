@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:16.4
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=db
+      - POSTGRES_PASSWORD=supersecret
+    ports:
+      - "4000:5432"
+    volumes:
+      - ./docker-data/db:/var/lib/postgresql/data
