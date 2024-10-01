@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:16.4
+    tty: true
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=db
@@ -9,3 +10,4 @@ services:
       - "4000:5432"
     volumes:
       - ./docker-data/db:/var/lib/postgresql/data
+    command: ["postgres", "-c", "log_statement=all"]
