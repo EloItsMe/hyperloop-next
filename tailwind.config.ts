@@ -6,5 +6,10 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   plugins: [],
+  theme: {
+    screens: {
+      sm: "28em",
+    },
+  },
 };
 export default config;

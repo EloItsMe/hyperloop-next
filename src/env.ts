@@ -10,7 +10,10 @@ export const env = createEnv({
     AUTH_SECRET: z.string(),
     GITHUB_ID: z.string(),
     GITHUB_SECRET: z.string(),
+    RESEND_API_KEY: z.string(),
   },
+
+  client: {},
 
   onValidationError: (error: ZodError) => {
     console.error(
