@@ -1,9 +1,8 @@
-"use client";
-
 import SpinnerIcon from "@/assets/icons/SpinnerIcon";
 import { cn } from "@/lib/utils/tailwindcss";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "primary" | "secondary";
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;

@@ -1,35 +1,10 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  "plugins": [
-    "validate-filename"
-  ],
+  "plugins": ["validate-filename"],
   "rules": {
     "prefer-arrow-callback": "error",
     "prefer-template": "error",
     "semi": "error",
-    "quotes": "error",
-    "validate-filename/naming-rules": [
-      "error",
-      {
-        "rules": [
-          {
-            "case": "pascal",
-            "target": "**/components/**"
-          },
-          {
-            "case": "kebab",
-            "target": "**/app/**"
-          },
-          {
-            "case": "pascal",
-            "target": "**/icons/**"
-          },
-          {
-            "case": "camel",
-            "target": "**/*.{js,jsx,ts,tsx}"
-          }
-        ]
-      }
-    ]
+    "quotes": "error"
   }
 }

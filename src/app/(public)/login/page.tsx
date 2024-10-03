@@ -1,13 +1,11 @@
-import {
-  HandleNextAuthError,
-  LoginWithGithubClient,
-  LoginWithMagicLinkClient,
-} from "./clients";
+import { LoginWithGithub } from "./_clients/LoginWithGithub";
+import { LoginWithMagicLink } from "./_clients/LoginWithMagicLink";
+import { NextAuthErrors } from "./_clients/NextAuthErrors";
 
 export default function LoginPage() {
   return (
     <>
-      <HandleNextAuthError />
+      <NextAuthErrors />
       <main className="min-h-svh p-6 sm:flex sm:items-center">
         <div className="w-full max-w-md pt-16 sm:mx-auto sm:pt-0">
           <h1 className="text-xl font-semibold text-slate-950">
@@ -17,11 +15,11 @@ export default function LoginPage() {
             Log in to your account
           </h2>
 
-          <LoginWithGithubClient />
+          <LoginWithGithub />
 
           <hr className="my-6 h-0.5 border-none bg-slate-100" />
 
-          <LoginWithMagicLinkClient />
+          <LoginWithMagicLink />
         </div>
       </main>
     </>
