@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { User } from "@prisma/client";
 import NextAuth, { DefaultSession } from "next-auth";
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
 import { prisma } from "./prisma";
 
@@ -18,6 +19,10 @@ export const authConfig = {
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
     }),
+    Google({
+      clientId: env.GOOGLE_ID,
+      clientSecret: env.GOOGLE_SECRET,
+    }),
   ],
 };
 
@@ -26,6 +31,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     GitHub({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
+    }),
+    Google({
+      clientId: env.GOOGLE_ID,
+      clientSecret: env.GOOGLE_SECRET,
     }),
     Resend({
       apiKey: env.RESEND_API_KEY,

@@ -9,6 +9,7 @@ interface InputFieldProps {
   required?: boolean;
   label?: string;
   name: string;
+  defaultValue?: string;
   placeholder?: string;
   hint?: string;
   error?: string;
@@ -22,6 +23,7 @@ export function InputField({
   error,
   required,
   name,
+  defaultValue,
   placeholder,
   wrapperClassName,
 }: InputFieldProps) {
@@ -32,7 +34,13 @@ export function InputField({
           {label}
         </Label>
       )}
-      <Input type={type} name={name} id={name} placeholder={placeholder} />
+      <Input
+        type={type}
+        name={name}
+        id={name}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+      />
       {hint && <Hint message={hint} />}
       {error && <Error message={error} />}
     </div>

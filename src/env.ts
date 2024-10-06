@@ -7,9 +7,15 @@ export const env = createEnv({
 
   server: {
     DATABASE_URL: z.string().url(),
+
     AUTH_SECRET: z.string(),
+
     GITHUB_ID: z.string(),
     GITHUB_SECRET: z.string(),
+
+    GOOGLE_ID: z.string(),
+    GOOGLE_SECRET: z.string(),
+
     RESEND_API_KEY: z.string(),
   },
 
@@ -23,3 +29,4 @@ export const env = createEnv({
     process.exit(1);
   },
 });
+  

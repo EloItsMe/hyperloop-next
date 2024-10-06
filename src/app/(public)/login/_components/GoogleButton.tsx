@@ -1,16 +1,16 @@
 "use client";
 
-import { GithubIcon } from "@/assets/icons/GithubIcon";
+import { loginWithGoogle } from "@/actions/auth";
+import { GoogleIcon } from "@/assets/icons/GoogleIcon";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
-import { loginWithGithubAction } from "../action";
 
-export function LoginWithGithub() {
+export function GoogleButton() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleOnClick = async () => {
     setIsLoading(true);
-    await loginWithGithubAction();
+    await loginWithGoogle();
   };
 
   return (
@@ -19,10 +19,10 @@ export function LoginWithGithub() {
       variant="secondary"
       className="w-full"
       isLoading={isLoading}
-      leftIcon={<GithubIcon />}
+      leftIcon={<GoogleIcon />}
       onClick={() => handleOnClick()}
     >
-      Login with Github
+      Login with Google
     </Button>
   );
 }

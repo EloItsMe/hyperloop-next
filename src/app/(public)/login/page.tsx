@@ -1,6 +1,7 @@
-import { LoginWithGithub } from "./_clients/LoginWithGithub";
-import { LoginWithMagicLink } from "./_clients/LoginWithMagicLink";
-import { NextAuthErrors } from "./_clients/NextAuthErrors";
+import { GithubButton } from "./_components/GithubButton";
+import { GoogleButton } from "./_components/GoogleButton";
+import { MagicLinkForm } from "./_components/MagicLinkForm";
+import { NextAuthErrors } from "./_components/NextAuthErrors";
 
 export default function LoginPage() {
   return (
@@ -15,11 +16,14 @@ export default function LoginPage() {
             Log in to your account
           </h2>
 
-          <LoginWithGithub />
+          <div className="grid gap-3">
+            <GoogleButton />
+            <GithubButton />
+          </div>
 
           <hr className="my-6 h-0.5 border-none bg-slate-100" />
 
-          <LoginWithMagicLink />
+          <MagicLinkForm />
         </div>
       </main>
     </>
