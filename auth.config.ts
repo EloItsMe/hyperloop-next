@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { capitalize } from "@/lib/utils/string";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { User } from "@prisma/client";
 import NextAuth, { DefaultSession } from "next-auth";
@@ -69,6 +70,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   events: {
+    async createUser({ user }) {
+      if (!user.email) {
+        return;
+      }
+
+      if (!user.image) {
+        await prisma.user.update({
+          where: {
+            email: user.email,
+          },
+          data: {
+            image: `https://api.dicebear.com/9.x/initials/png?seed=${user.email}`,
+          },
+        });
+      }
+
+      if (!user.name) {
+        const nameArray = user.email.split("@")[0].split(".");
+        capitalize(nameArray[0]);
+        capitalize(nameArray[1]);
+
+        await prisma.user.update({
+          where: {
+            email: user.email,
+          },
+          data: {
+            name: nameArray.join(" "),
+          },
+        });
+      }
+    },
+
     async linkAccount({ user }) {
       if (!user.email) {
         return;

@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/../auth.config";
+import { auth, signIn } from "@/../auth.config";
 import { authMagicLinkSchema } from "@/schemas/auth";
 import { z, ZodError } from "zod";
 
@@ -46,4 +46,9 @@ export async function loginWithGithub() {
 
 export async function loginWithGoogle() {
   await signIn("google");
+}
+
+export async function getCurrentUser() {
+  const session = await auth();
+  return session?.user;
 }
