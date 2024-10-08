@@ -1,7 +1,7 @@
 "use client";
 
 import { loginWithGithub } from "@/actions/auth";
-import { GithubIcon } from "@/assets/icons/GithubIcon";
+import { GithubIcon } from "@/assets/icons/Github";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
 

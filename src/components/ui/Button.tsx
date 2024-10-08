@@ -1,4 +1,4 @@
-import SpinnerIcon from "@/assets/icons/SpinnerIcon";
+import { SpinnerIcon } from "@/assets/icons/Spinner";
 import { cn } from "@/lib/utils/tailwindcss";
 
 export interface ButtonProps

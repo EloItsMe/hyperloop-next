@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import { authConfig } from "../auth.config";
 export const { auth } = NextAuth(authConfig);
 
-export default auth((req) => {
+export default auth(async (req) => {
   const isLoggedIn = !!req.auth;
   const isAuthApiRoute = req.nextUrl.pathname.startsWith("/api/auth");
   const isAuthRoute = ["/login"].includes(req.nextUrl.pathname);

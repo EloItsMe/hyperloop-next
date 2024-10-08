@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/../auth.config";
-import { authMagicLinkSchema } from "@/schemas/authSchema";
+import { authMagicLinkSchema } from "@/schemas/auth";
 import { z, ZodError } from "zod";
 
 interface magicLinkPrevStateProps {

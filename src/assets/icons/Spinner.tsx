@@ -1,4 +1,4 @@
-function SpinnerIcon(props: React.SVGProps<SVGSVGElement>) {
+export function SpinnerIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg fill="none" viewBox="0 0 24 24" {...props}>
       <circle
@@ -16,5 +16,3 @@ function SpinnerIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-export default SpinnerIcon;
