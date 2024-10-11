@@ -24,6 +24,7 @@ export function Password(
       <button
         type="button"
         className="absolute right-3 size-6 text-slate-950"
+        tabIndex={-1}
         onClick={handleClick}
       >
         <EyeSlashIcon className={showPassword ? "block" : "hidden"} />

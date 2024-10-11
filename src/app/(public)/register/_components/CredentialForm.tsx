@@ -9,6 +9,7 @@ import { PasswordField } from "@/components/ui/Form/PasswordField";
 import { SubmitButton } from "@/components/ui/Form/SubmitButton";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
+import { toast } from "sonner";
 
 export function CredentialForm() {
   const [formState, formAction] = useFormState(
@@ -18,6 +19,9 @@ export function CredentialForm() {
 
   useEffect(() => {
     console.log(formState);
+    if (formState.error?.message) {
+      toast.error(formState.error.message);
+    }
   }, [formState]);
 
   return (
