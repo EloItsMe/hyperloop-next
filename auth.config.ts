@@ -1,12 +1,14 @@
+import { db } from "@/db";
 import { env } from "@/env";
 import { capitalize } from "@/lib/utils/string";
+import { loginCredentialsSchema } from "@/schemas/auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { User } from "@prisma/client";
-import NextAuth, { DefaultSession } from "next-auth";
+import bcrypt from "bcryptjs";
+import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import Resend from "next-auth/providers/resend";
-import { prisma } from "./prisma";
 
 declare module "next-auth" {
   interface Session {
@@ -25,7 +27,7 @@ export const authConfig = {
       clientSecret: env.GOOGLE_SECRET,
     }),
   ],
-};
+} satisfies NextAuthConfig;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -37,27 +39,47 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: env.GOOGLE_ID,
       clientSecret: env.GOOGLE_SECRET,
     }),
-    Resend({
-      apiKey: env.RESEND_API_KEY,
-      from: "donotreply@eloits.me",
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
+      },
+      authorize: async (credentials) => {
+        try {
+          const { email, password } =
+            await loginCredentialsSchema.parseAsync(credentials);
+
+          const user = await db.user.findUnique({
+            where: {
+              email: email,
+            },
+          });
+
+          if (!user || !user.password) throw new Error("User does not exist");
+
+          const validPassword = await bcrypt.compare(password, user.password);
+          if (!validPassword) throw new Error("Invalid password");
+
+          return user;
+        } catch (error) {
+          console.log(error);
+
+          return null;
+        }
+      },
     }),
   ],
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-    verifyRequest: "/login",
-    signOut: "/",
-    newUser: "/",
-  },
   callbacks: {
     async session({ session }) {
+      console.log("callbacks: session");
+
       if (!session.user) {
         return session;
       }
 
-      const user = await prisma.user.findUnique({
+      const user = await db.user.findUnique({
         where: {
           email: session.user.email,
         },
@@ -71,12 +93,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   events: {
     async createUser({ user }) {
+      console.log("events: createUser");
+
       if (!user.email) {
         return;
       }
 
       if (!user.image) {
-        await prisma.user.update({
+        await db.user.update({
           where: {
             email: user.email,
           },
@@ -91,7 +115,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         capitalize(nameArray[0]);
         capitalize(nameArray[1]);
 
-        await prisma.user.update({
+        await db.user.update({
           where: {
             email: user.email,
           },
@@ -103,11 +127,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async linkAccount({ user }) {
+      console.log("events: linkAccount");
+
       if (!user.email) {
         return;
       }
 
-      await prisma.user.update({
+      await db.user.update({
         where: {
           email: user.email,
         },

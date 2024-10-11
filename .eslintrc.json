@@ -1,6 +1,5 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  "plugins": ["validate-filename"],
   "rules": {
     "prefer-arrow-callback": "error",
     "prefer-template": "error",
