@@ -15,8 +15,8 @@ export default function LoginPage() {
           </h2>
 
           <div className="grid gap-3">
-            <GoogleButton />
-            <GithubButton />
+            {/* <GoogleButton />
+            <GithubButton /> */}
           </div>
 
           <hr className="my-6 h-0.5 border-none bg-slate-100" />

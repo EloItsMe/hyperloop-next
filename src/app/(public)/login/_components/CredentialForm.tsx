@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  loginWithCredentialFormStateProps,
+  loginWithCredentialFormState,
   loginWithCredentials,
 } from "@/actions/auth";
 import { InputField } from "@/components/ui/Form/InputField";
@@ -13,14 +13,15 @@ import { toast } from "sonner";
 
 export function CredentialForm() {
   const form = useRef<HTMLFormElement>(null);
-  const [formState, formAction] = useFormState(loginWithCredentials, {
-    status: null,
-  } as loginWithCredentialFormStateProps);
+  const [formState, formAction] = useFormState(
+    loginWithCredentials,
+    {} as loginWithCredentialFormState
+  );
 
   useEffect(() => {
-    if (formState?.status === "ERROR") {
+    if (!!formState.error) {
+      toast.error(formState.error.message);
       form.current?.reset();
-      toast.error("Invalid email or password");
     }
   }, [formState]);
 

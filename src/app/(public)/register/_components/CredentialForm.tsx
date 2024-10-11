@@ -1,19 +1,24 @@
 "use client";
 
 import {
-  registerWithCredentialFormStateProps,
+  registerWithCredentialFormState,
   registerWithCredentials,
 } from "@/actions/auth";
 import { InputField } from "@/components/ui/Form/InputField";
 import { PasswordField } from "@/components/ui/Form/PasswordField";
 import { SubmitButton } from "@/components/ui/Form/SubmitButton";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
 
 export function CredentialForm() {
-  const [formState, formAction] = useFormState(registerWithCredentials, {
-    status: null,
-    errors: null,
-  } as registerWithCredentialFormStateProps);
+  const [formState, formAction] = useFormState(
+    registerWithCredentials,
+    {} as registerWithCredentialFormState
+  );
+
+  useEffect(() => {
+    console.log(formState);
+  }, [formState]);
 
   return (
     <form action={formAction} noValidate className="space-y-6">
@@ -22,10 +27,14 @@ export function CredentialForm() {
           type="email"
           label="Email"
           name="email"
-          error={formState?.errors?.fieldErrors?.email?.[0]}
+          error={formState?.error?.fieldErrors?.email?.[0]}
         />
-        <PasswordField label="Password" name="password" />
-        <PasswordField label="Confirm Password" name="confirmPassword" />
+        <PasswordField
+          label="Password"
+          name="password"
+          hint=""
+          error={formState?.error?.fieldErrors?.password?.[0]}
+        />
       </div>
 
       <SubmitButton variant="primary" className="w-full">
