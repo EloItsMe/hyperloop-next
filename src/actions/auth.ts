@@ -125,12 +125,18 @@ export async function registerWithCredentials(
 
   // Create the user
   try {
+    const nameArray = email
+      .split("@")[0]
+      .split(".")
+      .map((name) => name.charAt(0).toUpperCase() + name.slice(1));
+    const name = nameArray.join(" ");
+
     await db.user.create({
       data: {
         name: name,
         email: email,
         password: hashedPassword,
-        image: 
+        image: `https://api.dicebear.com/9.x/initials/png?seed=${email}`,
       },
     });
   } catch {
@@ -169,6 +175,14 @@ export async function registerWithCredentials(
   }
 
   return {};
+}
+
+export async function loginWithGithub() {
+  await signIn("github");
+}
+
+export async function loginWithGoogle() {
+  await signIn("google");
 }
 
 export async function getCurrentUser() {

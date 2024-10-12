@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CredentialForm } from "./_components/CredentialForm";
 
 export default function LoginPage() {
@@ -13,6 +14,16 @@ export default function LoginPage() {
           </h2>
 
           <CredentialForm />
+
+          <p className="mt-4 text-sm text-slate-500">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="text-slate-950 hover:underline hover:underline-offset-2"
+            >
+              Login to your account
+            </Link>
+          </p>
         </div>
       </main>
     </>
