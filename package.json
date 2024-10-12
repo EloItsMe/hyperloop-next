@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:deploy": "exec prisma deploy",
+    "db:deploy": "exec prisma migrate deploy",
     "db:migrate": "exec prisma migrate dev",
     "db:studio": "exec prisma studio"
   },
