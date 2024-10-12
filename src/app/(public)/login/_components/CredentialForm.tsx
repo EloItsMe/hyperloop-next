@@ -1,26 +1,28 @@
 "use client";
 
 import {
-  loginWithCredentialFormStateProps,
+  loginWithCredentialFormState,
   loginWithCredentials,
 } from "@/actions/auth";
 import { InputField } from "@/components/ui/Form/InputField";
 import { PasswordField } from "@/components/ui/Form/PasswordField";
 import { SubmitButton } from "@/components/ui/Form/SubmitButton";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
 
 export function CredentialForm() {
   const form = useRef<HTMLFormElement>(null);
-  const [formState, formAction] = useFormState(loginWithCredentials, {
-    status: null,
-  } as loginWithCredentialFormStateProps);
+  const [formState, formAction] = useFormState(
+    loginWithCredentials,
+    {} as loginWithCredentialFormState
+  );
 
   useEffect(() => {
-    if (formState?.status === "ERROR") {
+    if (!!formState.error) {
+      toast.error(formState.error.message);
       form.current?.reset();
-      toast.error("Invalid email or password");
     }
   }, [formState]);
 
@@ -28,7 +30,18 @@ export function CredentialForm() {
     <form action={formAction} ref={form} noValidate className="space-y-6">
       <div className="space-y-3">
         <InputField type="email" label="Email" name="email" />
-        <PasswordField label="Password" name="password" />
+        <PasswordField
+          label="Password"
+          name="password"
+          hint={
+            <Link
+              href={"/login"}
+              className="transition-colors hover:text-slate-950"
+            >
+              Forgot your password?
+            </Link>
+          }
+        />
       </div>
       <SubmitButton variant="primary" className="w-full">
         Login

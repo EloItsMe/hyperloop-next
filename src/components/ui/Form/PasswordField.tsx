@@ -10,7 +10,7 @@ interface PasswordFieldProps {
   name: string;
   defaultValue?: string;
   placeholder?: string;
-  hint?: string;
+  hint?: React.ReactNode;
   error?: string;
   wrapperClassName?: string;
 }

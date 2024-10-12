@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils/tailwindcss";
+import React from "react";
 
 interface HintProps {
-  message: string;
+  message: React.ReactNode;
   className?: string;
 }
 
