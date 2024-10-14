@@ -1,5 +1,7 @@
+import { CredentialRegisterForm } from "@/components/app/auth/CredentialsRegisterForm";
+import { GithubLoginButton } from "@/components/app/auth/GithubLoginButton";
+import { GoogleLoginButton } from "@/components/app/auth/GoogleLoginButton";
 import Link from "next/link";
-import { CredentialForm } from "./_components/CredentialForm";
 
 export default function LoginPage() {
   return (
@@ -13,7 +15,14 @@ export default function LoginPage() {
             Create your account
           </h2>
 
-          <CredentialForm />
+          <div className="grid gap-3">
+            <GoogleLoginButton />
+            <GithubLoginButton />
+          </div>
+
+          <hr className="my-6 h-0.5 border-none bg-slate-100" />
+
+          <CredentialRegisterForm />
 
           <p className="mt-4 text-sm text-slate-500">
             Already have an account?{" "}

@@ -1,7 +1,8 @@
-import { getCurrentUser } from "@/actions/auth";
 import "@/assets/stylesheets/globals.css";
 import Sidebar from "@/components/layouts/Sidebar";
 import { Toaster } from "@/components/ui/Toaster";
+import { getCurrentUser } from "@/lib/utils/currentUser";
+import { Providers } from "@/lib/utils/providers";
 
 export const metadata = {
   title: "Next.js",
@@ -18,8 +19,10 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="grid min-h-svh grid-cols-[auto_auto] gap-4 bg-slate-50">
-        <Sidebar currentUser={currentUser} />
-        {children}
+        <Providers>
+          <Sidebar currentUser={currentUser} />
+          {children}
+        </Providers>
         <Toaster />
       </body>
     </html>

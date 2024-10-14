@@ -1,7 +1,7 @@
+import CredentialsLoginForm from "@/components/app/auth/CredentialsLoginForm";
+import { GithubLoginButton } from "@/components/app/auth/GithubLoginButton";
+import { GoogleLoginButton } from "@/components/app/auth/GoogleLoginButton";
 import Link from "next/link";
-import { CredentialsForm } from "./_components/CredentialsForm";
-import { GithubButton } from "./_components/GithubButton";
-import { GoogleButton } from "./_components/GoogleButton";
 import { NextAuthErrors } from "./_components/NextAuthErrors";
 
 export default function LoginPage({
@@ -22,13 +22,13 @@ export default function LoginPage({
           </h2>
 
           <div className="grid gap-3">
-            <GoogleButton />
-            <GithubButton />
+            <GoogleLoginButton />
+            <GithubLoginButton />
           </div>
 
           <hr className="my-6 h-0.5 border-none bg-slate-100" />
 
-          <CredentialsForm />
+          <CredentialsLoginForm />
 
           <p className="mt-4 text-sm text-slate-500">
             Don{"'"}t have an account?{" "}

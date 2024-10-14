@@ -1,5 +1,6 @@
 import "@/assets/stylesheets/globals.css";
 import { Toaster } from "@/components/ui/Toaster";
+import { Providers } from "@/lib/utils/providers";
 
 export const metadata = {
   title: "Next.js",
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-svh bg-slate-50">
-        {children}
+        <Providers>{children}</Providers>
         <Toaster />
       </body>
     </html>

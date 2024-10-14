@@ -1,71 +1,11 @@
 "use server";
 
-import { auth, signIn } from "@/auth";
+import { signIn } from "@/auth";
 import { db } from "@/db";
-import {
-  loginCredentialsSchema,
-  registerCredentialsSchema,
-} from "@/schemas/auth";
+import { registerCredentialsSchema } from "@/schemas/auth";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
-import { redirect } from "next/navigation";
 import { z, ZodError } from "zod";
-
-export type loginWithCredentialFormState = {
-  error?: {
-    message: string;
-  };
-};
-
-export async function loginWithCredentials(
-  prevState: loginWithCredentialFormState,
-  formData: FormData
-) : Promise<loginWithCredentialFormState> {
-  const data = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-
-  // Zod Validation
-  try {
-    loginCredentialsSchema.parse(data);
-  } catch {
-    return {
-      error: {
-        message: "Invalid email or password",
-      },
-    };
-  }
-
-  // Login the user
-  try {
-    await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-    });
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return {
-            error: {
-              message: "Invalid email or password",
-            },
-          };
-        default:
-          return {
-            error: {
-              message: "Something went wrong",
-            },
-          };
-      }
-    }
-
-    throw error;
-  }
-
-  return {};
-}
 
 export type registerWithCredentialFormState = {
   error?: {
@@ -79,7 +19,7 @@ export type registerWithCredentialFormState = {
 export async function registerWithCredentials(
   prevState: registerWithCredentialFormState,
   formData: FormData
-) : Promise<registerWithCredentialFormState> {
+): Promise<registerWithCredentialFormState> {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
@@ -175,22 +115,4 @@ export async function registerWithCredentials(
   }
 
   return {};
-}
-
-export async function loginWithGithub() {
-  await signIn("github");
-}
-
-export async function loginWithGoogle() {
-  await signIn("google");
-}
-
-export async function getCurrentUser() {
-  const session = await auth();
-
-  if (!session?.user) {
-    redirect("/login");
-  }
-
-  return session.user;
 }

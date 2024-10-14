@@ -3,19 +3,14 @@
 import { InputField } from "@/components/ui/Form/InputField";
 import { PasswordField } from "@/components/ui/Form/PasswordField";
 import { SubmitButton } from "@/components/ui/Form/SubmitButton";
-import { useCredentials } from "@/hooks/credentials";
+import { useCredentialsLogin } from "@/hooks/auth/useCredentialsLogin";
 import Link from "next/link";
 
-export function CredentialsForm() {
-  const { loginFormRef, loginAction } = useCredentials();
+export default function CredentialsLoginForm() {
+  const { formRef, formAction } = useCredentialsLogin();
 
   return (
-    <form
-      action={loginAction}
-      ref={loginFormRef}
-      noValidate
-      className="space-y-6"
-    >
+    <form action={formAction} ref={formRef} noValidate className="space-y-6">
       <div className="space-y-3">
         <InputField type="email" label="Email" name="email" />
         <PasswordField
