@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CredentialForm } from "./_components/CredentialForm";
+import { CredentialsForm } from "./_components/CredentialsForm";
 import { GithubButton } from "./_components/GithubButton";
 import { GoogleButton } from "./_components/GoogleButton";
 import { NextAuthErrors } from "./_components/NextAuthErrors";
@@ -28,7 +28,7 @@ export default function LoginPage({
 
           <hr className="my-6 h-0.5 border-none bg-slate-100" />
 
-          <CredentialForm />
+          <CredentialsForm />
 
           <p className="mt-4 text-sm text-slate-500">
             Don{"'"}t have an account?{" "}

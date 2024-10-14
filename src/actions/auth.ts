@@ -20,7 +20,7 @@ export type loginWithCredentialFormState = {
 export async function loginWithCredentials(
   prevState: loginWithCredentialFormState,
   formData: FormData
-) {
+) : Promise<loginWithCredentialFormState> {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
@@ -79,7 +79,7 @@ export type registerWithCredentialFormState = {
 export async function registerWithCredentials(
   prevState: registerWithCredentialFormState,
   formData: FormData
-) {
+) : Promise<registerWithCredentialFormState> {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
@@ -96,7 +96,7 @@ export async function registerWithCredentials(
       error: {
         fieldErrors: { ...mapError },
       },
-    } as registerWithCredentialFormState;
+    };
   }
 
   const { email, password } = registerCredentialsSchema.parse(data);
@@ -117,7 +117,7 @@ export async function registerWithCredentials(
           email: ["Email address already used"],
         },
       },
-    } as registerWithCredentialFormState;
+    };
   }
 
   // Hashing the password
@@ -144,7 +144,7 @@ export async function registerWithCredentials(
       error: {
         message: "Something went wrong",
       },
-    } as registerWithCredentialFormState;
+    };
   }
 
   // Log in the user

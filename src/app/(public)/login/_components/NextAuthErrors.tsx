@@ -14,7 +14,7 @@ export function NextAuthErrors({ error }: { error?: string }) {
         router.push("/login");
       });
     }
-  });
+  }, [error, router]);
 
   return null;
 }

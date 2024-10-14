@@ -1,9 +1,17 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:tailwindcss/recommended"
+  ],
   "rules": {
     "prefer-arrow-callback": "error",
-    "prefer-template": "error",
-    "semi": "error",
-    "quotes": "error"
+    "prefer-template": "error"
+  },
+  "settings": {
+    "tailwindcss": {
+      "config": "./tailwind.config.ts",
+      "callees": ["cn", "twMerge", "clsx", "classnames", "ctl"]
+    }
   }
 }
